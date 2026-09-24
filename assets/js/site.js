@@ -1,10 +1,1 @@
-
-const toggle = document.querySelector('.menu-toggle');
-const mobileMenu = document.querySelector('.mobile-menu');
-toggle?.addEventListener('click', () => {
-  const open = toggle.getAttribute('aria-expanded') === 'true';
-  toggle.setAttribute('aria-expanded', String(!open));
-  mobileMenu.hidden = open;
-});
-const year = document.getElementById('year');
-if (year) year.textContent = new Date().getFullYear();
+const toggle=document.querySelector('.menu-toggle');const mobile=document.querySelector('.mobile-menu');toggle?.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')==='true';toggle.setAttribute('aria-expanded',String(!open));mobile.hidden=open;});document.querySelectorAll('.mobile-menu a').forEach(a=>a.addEventListener('click',()=>{if(toggle&&mobile){toggle.setAttribute('aria-expanded','false');mobile.hidden=true;}}));document.querySelectorAll('form[data-demo-form]').forEach(form=>form.addEventListener('submit',e=>{e.preventDefault();const msg=form.querySelector('.form-success');if(msg){msg.classList.add('show');msg.scrollIntoView({behavior:'smooth',block:'nearest'});}}));const year=document.getElementById('year');if(year)year.textContent=new Date().getFullYear();
