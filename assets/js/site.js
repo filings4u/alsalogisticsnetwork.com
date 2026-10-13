@@ -97,3 +97,27 @@ if (year) year.textContent = new Date().getFullYear();
     else nav.append(driver);
   }
 })();
+
+
+// Combine the former standalone bottom-page CTA with the global footer.
+(function unifyFooterCallToAction() {
+  const footer = document.querySelector('.site-footer');
+  if (!footer || footer.querySelector('.footer-cta')) return;
+
+  // Remove the entire standalone CTA section, including its excess spacing.
+  document.querySelectorAll('main .cta-shell').forEach(cta => {
+    const section = cta.closest('section');
+    if (section) section.remove();
+    else cta.remove();
+  });
+
+  const section = document.createElement('section');
+  section.className = 'footer-cta';
+  section.setAttribute('aria-label', 'Request transportation services');
+  section.innerHTML = '<div class="container footer-cta-inner">' +
+    '<div class="footer-cta-copy"><h2>Move your next shipment with ALSA.</h2>' +
+    '<p>Tell us what is moving, where it is going, and when it needs to arrive. We’ll build the right transportation plan around it.</p></div>' +
+    '<div class="footer-cta-actions"><a class="btn btn-primary btn-lg" href="quote.html">Request a Quote →</a>' +
+    '<a class="btn btn-outline-light btn-lg" href="contact.html">Talk to ALSA</a></div></div>';
+  footer.prepend(section);
+})();
