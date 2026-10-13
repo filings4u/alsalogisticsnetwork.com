@@ -155,7 +155,19 @@ window.alsaSubmit = async function(form,type,feedback) {
    if(typeof value==="string"){if(Object.hasOwn(fields,key)){fields[key]=[].concat(fields[key],value)}else fields[key]=value;}
  }
  try{
-  const response=await fetch("https://ailzwppwsdvxtctryapb.supabase.co/functions/v1/website-intake",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type,fields})});
+  let payload={method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type,fields})};
+  if(type==="carrier"){
+    const file=form.querySelector('[name="insurance_certificate"]')?.files?.[0];
+    if(!file) throw new Error("Certificate of Insurance is required");
+    if(file.size>10485760||file.size===0) throw new Error("Insurance certificate must be 10 MB or smaller");
+    if(!["application/pdf","image/png","image/jpeg"].includes(file.type)) throw new Error("Use PDF, PNG, or JPG for your certificate");
+    const data=new FormData();
+    data.append("type",type);
+    data.append("fields",JSON.stringify(fields));
+    data.append("insurance_certificate",file);
+    payload={method:"POST",body:data};
+  }
+  const response=await fetch("https://ailzwppwsdvxtctryapb.supabase.co/functions/v1/website-intake",payload);
   const result=await response.json();
   if(!response.ok||!result.ok) throw new Error(result.error||"Unable to submit.");
   if(feedback){feedback.textContent="Thank you. Your information has been received by ALSA Logistics.";feedback.classList.add("show");feedback.scrollIntoView({behavior:"smooth",block:"nearest"});}
