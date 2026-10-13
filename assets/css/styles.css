@@ -158,3 +158,25 @@ button,input,select,textarea{font:inherit}
   .desktop-nav > a,.desktop-nav > .shipper-dropdown > summary { font-size:11px; }
   .nav-cta { padding-inline:12px; }
 }
+
+
+/* Unified footer: the former CTA now lives at the top of the footer. */
+.site-footer { margin-top:0; background:#081f3b; color:#fff; }
+.footer-cta { background:#081f3b; }
+.footer-cta-inner { display:flex;align-items:center;justify-content:space-between;gap:36px;padding:60px 0 46px;border-bottom:1px solid rgba(255,255,255,.16); }
+.footer-cta-copy { max-width:800px; }
+.footer-cta h2 { margin:0;color:#fff;font-size:clamp(30px,3.3vw,46px);line-height:1.12;letter-spacing:-.04em; }
+.footer-cta p { margin:12px 0 0;color:#cbdceb;font-size:16px;line-height:1.65; }
+.footer-cta-actions { display:flex;flex-shrink:0;flex-wrap:wrap;gap:12px; }
+.footer-cta-actions .btn-outline-light { color:#fff; }
+.site-footer .footer-main { padding-top:48px; }
+.site-footer .footer-links a,.site-footer .footer-brand p { color:#b4cae0; }
+.site-footer .footer-bottom { color:#a2bbd5; }
+@media(max-width:1000px) {
+  .footer-cta-inner { align-items:flex-start;flex-direction:column;gap:24px; }
+}
+@media(max-width:600px) {
+  .footer-cta-inner { padding:42px 0 32px; }
+  .footer-cta-actions { display:grid;width:100%; }
+  .footer-cta-actions .btn { width:100%; }
+}
