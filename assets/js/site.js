@@ -173,7 +173,7 @@ window.alsaSubmit = async function(form,type,feedback) {
   if(feedback){feedback.textContent="Thank you. Your information has been received by ALSA Logistics.";feedback.classList.add("show");feedback.scrollIntoView({behavior:"smooth",block:"nearest"});}
   form.reset();return true;
  }catch(error){
-  if(feedback){feedback.textContent="We could not send your information. Please try again or contact ALSA directly.";feedback.classList.add("show");}
+  if(feedback){feedback.textContent=error.message||"We could not send your information. Please try again or contact ALSA directly.";feedback.classList.add("show");}
   return false;
  }finally{if(button){button.disabled=false;button.textContent=original;}}
 };
