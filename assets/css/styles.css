@@ -225,3 +225,10 @@ button,input,select,textarea{font:inherit}
   .pre-footer-story-content h2 { font-size:30px; }
   .pre-footer-story-points span { font-size:11px; }
 }
+
+/* Shared form completion message, shown only after successful server response. */
+.alsa-form-success{width:100%;max-width:720px;margin:0 auto;padding:clamp(35px,5vw,72px) 20px;text-align:center;outline:none}
+.alsa-success-icon{display:grid;place-items:center;width:76px;height:76px;margin:0 auto 22px;border-radius:50%;background:#e7f6ed;color:#147447;font-size:42px;font-weight:900}
+.alsa-form-success h2{margin:0 0 18px;color:var(--navy);font-size:clamp(28px,3vw,42px);line-height:1.12;letter-spacing:-.035em}
+.alsa-form-success p{max-width:570px;margin:0 auto 15px;color:#4c6075;font-size:16px;line-height:1.7}
+.alsa-form-success .btn{margin-top:18px}
