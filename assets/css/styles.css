@@ -180,3 +180,49 @@ button,input,select,textarea{font:inherit}
   .footer-cta-actions { display:grid;width:100%; }
   .footer-cta-actions .btn { width:100%; }
 }
+
+
+/* Give the footer CTA a purposeful photographic treatment instead of a blank navy block. */
+.site-footer { background:#081f3b; }
+.footer-cta {
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:#081f3b;
+}
+.footer-cta::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  background-image:url("../../images/home-hero.jpg");
+  background-size:cover;
+  background-position:center 54%;
+}
+.footer-cta::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(90deg,rgba(5,22,43,.98) 0%,rgba(7,31,59,.94) 43%,rgba(7,31,59,.60) 72%,rgba(7,31,59,.32) 100%);
+}
+.footer-cta-inner {
+  min-height:260px;
+  padding:48px 0;
+  border-bottom:0;
+  position:relative;
+}
+.footer-cta-copy { max-width:720px; }
+.footer-cta h2 { text-wrap:balance; }
+.footer-cta-actions { justify-content:flex-end; }
+.site-footer .footer-main { padding-top:52px; }
+@media(max-width:1000px){
+  .footer-cta::after { background:linear-gradient(90deg,rgba(5,22,43,.97),rgba(7,31,59,.75)); }
+  .footer-cta-inner { min-height:0; }
+  .footer-cta-actions { justify-content:flex-start; }
+}
+@media(max-width:600px){
+  .footer-cta::before { background-position:65% center; }
+  .footer-cta::after { background:rgba(5,22,43,.86); }
+  .footer-cta-inner { padding:42px 0; }
+}
