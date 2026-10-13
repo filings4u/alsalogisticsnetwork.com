@@ -124,3 +124,30 @@ if (year) year.textContent = new Date().getFullYear();
     </div>`;
   footerMain.prepend(section);
 })();
+
+
+// A shared visual transition gives every page a purposeful finish before the footer.
+(function addPreFooterStory() {
+  const footer = document.querySelector('.site-footer');
+  if (!footer || document.querySelector('.pre-footer-story')) return;
+  const story = document.createElement('section');
+  story.className = 'pre-footer-story';
+  story.setAttribute('aria-label', 'ALSA transportation coordination');
+  story.innerHTML = `
+    <div class="container pre-footer-story-inner">
+      <div class="pre-footer-story-image">
+        <img src="images/warehouse-shippers.jpg" alt="Logistics team coordinating shipments at a warehouse" loading="lazy">
+      </div>
+      <div class="pre-footer-story-content">
+        <span class="pre-footer-story-label">THE ALSA ADVANTAGE</span>
+        <h2>Every shipment has a story. We keep yours moving.</h2>
+        <p>From the first freight details to the final delivery update, our team brings trucking, brokerage, and hands-on coordination together.</p>
+        <div class="pre-footer-story-points">
+          <span>Trucking capacity</span>
+          <span>Brokerage flexibility</span>
+          <span>Clear communication</span>
+        </div>
+      </div>
+    </div>`;
+  footer.before(story);
+})();
