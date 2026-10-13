@@ -63,6 +63,12 @@ if (year) year.textContent = new Date().getFullYear();
     });
     if (!isMobile) {
       details.addEventListener('mouseenter', () => { details.open = true; });
+      // Keep the menu open when its trigger is clicked; close on leaving
+      // the entire dropdown or clicking elsewhere.
+      summary.addEventListener('click', event => {
+        event.preventDefault();
+        details.open = true;
+      });
       details.addEventListener('mouseleave', () => { details.open = false; });
       document.addEventListener('click', event => {
         if (!details.contains(event.target)) details.open = false;
