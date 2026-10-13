@@ -169,9 +169,9 @@ document.querySelectorAll("form[data-demo-form]").forEach(form=>{
  form.addEventListener("submit",async event=>{
  event.preventDefault();if(!form.reportValidity())return;
  const inputs=[...form.querySelectorAll("input,select,textarea")];
- const fields=["name","company","email","phone","topic","message"];
- inputs.forEach((el,index)=>{if(!el.name)el.name=fields[index]||"field_"+index;});
  const type=location.pathname.endsWith("consultation.html")?"consultation":"contact";
+ const names=type==="consultation"?["company","contact","email","phone","origin","destination","equipment","pickup_date","shipment_details"]:["name","company","email","phone","topic","message"];
+ inputs.forEach((el,index)=>{if(!el.name)el.name=names[index]||"field_"+index;});
  await window.alsaSubmit(form,type,form.querySelector(".form-success"));
  });
 });
