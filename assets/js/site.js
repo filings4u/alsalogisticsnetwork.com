@@ -167,7 +167,8 @@ window.alsaSubmit = async function(form,type,feedback) {
     data.append("insurance_certificate",file);
     payload={method:"POST",body:data};
   }
-  const response=await fetch("https://ailzwppwsdvxtctryapb.supabase.co/functions/v1/website-intake",payload);
+  const endpoint=type==="driver"?"driver-secure-intake":"website-intake";
+  const response=await fetch("https://ailzwppwsdvxtctryapb.supabase.co/functions/v1/"+endpoint,payload);
   const result=await response.json();
   if(!response.ok||!result.ok) throw new Error(result.error||"Unable to submit.");
   const confirmations={
