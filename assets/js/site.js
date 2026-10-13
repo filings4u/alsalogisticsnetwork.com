@@ -67,7 +67,7 @@ if (year) year.textContent = new Date().getFullYear();
       // the entire dropdown or clicking elsewhere.
       summary.addEventListener('click', event => {
         event.preventDefault();
-        details.open = true;
+        details.open = !details.open;
       });
       details.addEventListener('mouseleave', () => { details.open = false; });
       document.addEventListener('click', event => {
