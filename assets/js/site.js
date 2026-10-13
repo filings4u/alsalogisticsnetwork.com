@@ -170,6 +170,14 @@ window.alsaSubmit = async function(form,type,feedback) {
   const response=await fetch("https://ailzwppwsdvxtctryapb.supabase.co/functions/v1/website-intake",payload);
   const result=await response.json();
   if(!response.ok||!result.ok) throw new Error(result.error||"Unable to submit.");
+  if(type==="carrier"){
+    form.reset();
+    form.innerHTML='<section class="ops-submission-success" role="status" aria-live="polite" tabindex="-1"><span class="ops-success-mark" aria-hidden="true">✓</span><h2>Carrier application received</h2><p>Your application and Certificate of Insurance were submitted successfully to ALSA Logistics Network.</p><p>Our team will review your information and contact you about the next steps. Submission does not mean carrier approval.</p><a class="btn btn-primary" href="carriers.html">Return to Carriers →</a></section>';
+    const confirmation=form.querySelector(".ops-submission-success");
+    confirmation.scrollIntoView({behavior:"smooth",block:"center"});
+    confirmation.focus({preventScroll:true});
+    return true;
+  }
   if(feedback){feedback.textContent="Thank you. Your information has been received by ALSA Logistics.";feedback.classList.add("show");feedback.scrollIntoView({behavior:"smooth",block:"nearest"});}
   form.reset();return true;
  }catch(error){
