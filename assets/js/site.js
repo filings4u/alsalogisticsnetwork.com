@@ -99,25 +99,28 @@ if (year) year.textContent = new Date().getFullYear();
 })();
 
 
-// Combine the former standalone bottom-page CTA with the global footer.
+// Remove repeated end-of-page calls to action and place one compact action row
+// directly inside the existing footer content, on every page.
 (function unifyFooterCallToAction() {
-  const footer = document.querySelector('.site-footer');
-  if (!footer || footer.querySelector('.footer-cta')) return;
-
-  // Remove the entire standalone CTA section, including its excess spacing.
   document.querySelectorAll('main .cta-shell').forEach(cta => {
-    const section = cta.closest('section');
-    if (section) section.remove();
+    const wrapper = cta.closest('section');
+    if (wrapper && wrapper.contains(cta)) wrapper.remove();
     else cta.remove();
   });
 
-  const section = document.createElement('section');
+  const footerMain = document.querySelector('.site-footer .footer-main');
+  if (!footerMain || footerMain.querySelector('.footer-cta')) return;
+
+  const section = document.createElement('div');
   section.className = 'footer-cta';
-  section.setAttribute('aria-label', 'Request transportation services');
-  section.innerHTML = '<div class="container footer-cta-inner">' +
-    '<div class="footer-cta-copy"><h2>Move your next shipment with ALSA.</h2>' +
-    '<p>Tell us what is moving, where it is going, and when it needs to arrive. We’ll build the right transportation plan around it.</p></div>' +
-    '<div class="footer-cta-actions"><a class="btn btn-primary btn-lg" href="quote.html">Request a Quote →</a>' +
-    '<a class="btn btn-outline-light btn-lg" href="contact.html">Talk to ALSA</a></div></div>';
-  footer.prepend(section);
+  section.innerHTML = `
+    <div class="footer-cta-copy">
+      <h2>Ready to move freight?</h2>
+      <p>Tell ALSA what you need moved. Our team can help plan your next shipment.</p>
+    </div>
+    <div class="footer-cta-actions">
+      <a class="btn btn-primary" href="quote.html">Request a Quote →</a>
+      <a class="btn btn-outline-light" href="contact.html">Contact ALSA</a>
+    </div>`;
+  footerMain.prepend(section);
 })();
