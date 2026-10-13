@@ -140,7 +140,7 @@ button,input,select,textarea{font:inherit}
 .shipper-dropdown > summary::after { content:'';width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s; }
 .shipper-dropdown[open] > summary::after { transform:translateY(2px) rotate(225deg); }
 .shipper-dropdown > summary:hover,.shipper-dropdown > summary.active,.shipper-dropdown[open] > summary { color:var(--blue); }
-.shipper-dropdown-menu { position:absolute;z-index:150;top:calc(100% + 23px);left:-18px;min-width:225px;padding:10px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 50px rgba(7,26,51,.17); }
+.shipper-dropdown-menu { position:absolute;z-index:150;top:100%;left:-18px;min-width:225px;padding:10px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 50px rgba(7,26,51,.17); }
 .shipper-dropdown-menu a { display:block;padding:12px 14px;border-radius:8px;color:var(--navy);font-size:13px;text-decoration:none;font-weight:750;white-space:nowrap; }
 .desktop-nav .shipper-dropdown-menu a::after { display:none; }
 .shipper-dropdown-menu a:hover,.shipper-dropdown-menu a.active { color:var(--blue);background:var(--soft); }
