@@ -15,14 +15,6 @@ toggle?.addEventListener('click', () => {
 mobile?.addEventListener('click', (event) => {
   if (event.target.closest('a')) closeMobileMenu();
 });
-document.querySelectorAll('form[data-demo-form]').forEach(form => form.addEventListener('submit', event => {
-  event.preventDefault();
-  const msg = form.querySelector('.form-success');
-  if (msg) {
-    msg.classList.add('show');
-    msg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-}));
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
 
@@ -151,3 +143,35 @@ if (year) year.textContent = new Date().getFullYear();
     </div>`;
   footer.before(story);
 })();
+
+/* Shared production Supabase intake for public-facing website forms. */
+window.alsaSubmit = async function(form,type,feedback) {
+ const button=form.querySelector('[type="submit"],#da-complete');
+ const original=button?.textContent;
+ if(button){button.disabled=true;button.textContent="Submitting…";}
+ if(feedback){feedback.hidden=false;feedback.classList.remove("show");feedback.textContent="Sending your information securely…";}
+ const fields={};
+ for(const [key,value] of new FormData(form)){
+   if(typeof value==="string"){if(Object.hasOwn(fields,key)){fields[key]=[].concat(fields[key],value)}else fields[key]=value;}
+ }
+ try{
+  const response=await fetch("https://ailzwppwsdvxtctryapb.supabase.co/functions/v1/website-intake",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type,fields})});
+  const result=await response.json();
+  if(!response.ok||!result.ok) throw new Error(result.error||"Unable to submit.");
+  if(feedback){feedback.textContent="Thank you. Your information has been received by ALSA Logistics.";feedback.classList.add("show");feedback.scrollIntoView({behavior:"smooth",block:"nearest"});}
+  form.reset();return true;
+ }catch(error){
+  if(feedback){feedback.textContent="We could not send your information. Please try again or contact ALSA directly.";feedback.classList.add("show");}
+  return false;
+ }finally{if(button){button.disabled=false;button.textContent=original;}}
+};
+document.querySelectorAll("form[data-demo-form]").forEach(form=>{
+ form.addEventListener("submit",async event=>{
+ event.preventDefault();if(!form.reportValidity())return;
+ const inputs=[...form.querySelectorAll("input,select,textarea")];
+ const fields=["name","company","email","phone","topic","message"];
+ inputs.forEach((el,index)=>{if(!el.name)el.name=fields[index]||"field_"+index;});
+ const type=location.pathname.endsWith("consultation.html")?"consultation":"contact";
+ await window.alsaSubmit(form,type,form.querySelector(".form-success"));
+ });
+});
