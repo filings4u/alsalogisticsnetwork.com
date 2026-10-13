@@ -1,0 +1,1 @@
+document.querySelectorAll('form[data-prelaunch-form]').forEach(form=>{form.addEventListener('submit',event=>{event.preventDefault();if(!form.reportValidity())return;const message=form.querySelector('.form-success');if(message){message.classList.add('show');message.scrollIntoView({behavior:'smooth',block:'nearest'});}});});
