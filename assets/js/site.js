@@ -170,16 +170,33 @@ window.alsaSubmit = async function(form,type,feedback) {
   const response=await fetch("https://ailzwppwsdvxtctryapb.supabase.co/functions/v1/website-intake",payload);
   const result=await response.json();
   if(!response.ok||!result.ok) throw new Error(result.error||"Unable to submit.");
-  if(type==="carrier"){
-    form.reset();
-    form.innerHTML='<section class="ops-submission-success" role="status" aria-live="polite" tabindex="-1"><span class="ops-success-mark" aria-hidden="true">✓</span><h2>Carrier application received</h2><p>Your application and Certificate of Insurance were submitted successfully to ALSA Logistics Network.</p><p>Our team will review your information and contact you about the next steps. Submission does not mean carrier approval.</p><a class="btn btn-primary" href="carriers.html">Return to Carriers →</a></section>';
-    const confirmation=form.querySelector(".ops-submission-success");
-    confirmation.scrollIntoView({behavior:"smooth",block:"center"});
-    confirmation.focus({preventScroll:true});
-    return true;
-  }
-  if(feedback){feedback.textContent="Thank you. Your information has been received by ALSA Logistics.";feedback.classList.add("show");feedback.scrollIntoView({behavior:"smooth",block:"nearest"});}
-  form.reset();return true;
+  const confirmations={
+    carrier:{title:"Carrier application received",detail:"Your carrier application and Certificate of Insurance were submitted successfully.",next:"Our qualification team will review your information and contact you about the next steps. Submission does not mean carrier approval.",href:"carriers.html",label:"Return to Carriers"},
+    shipper:{title:"Shipper application received",detail:"Your business and freight profile was submitted successfully.",next:"Our team will review your shipping requirements and contact you about the next steps.",href:"shippers.html",label:"Return to Shippers"},
+    quote:{title:"Freight quote request received",detail:"Your shipment details were submitted successfully.",next:"Our team will review your freight requirements and follow up about pricing and availability.",href:"services.html",label:"View Our Services"},
+    driver:{title:"Driver application received",detail:"Your driver application was submitted successfully.",next:"Our recruiting team will review your application and contact you if the opportunity is a match.",href:"careers.html",label:"View Careers"},
+    consultation:{title:"Consultation request received",detail:"Your consultation request was submitted successfully.",next:"Our team will review your request and contact you about next steps.",href:"index.html",label:"Return Home"},
+    contact:{title:"Message received",detail:"Your message was sent successfully.",next:"Thank you for contacting ALSA Logistics. Our team will follow up as appropriate.",href:"index.html",label:"Return Home"}
+  };
+  const details=confirmations[type]||confirmations.contact;
+  form.reset();
+  form.replaceChildren();
+  const confirmation=document.createElement("section");
+  confirmation.className="alsa-form-success";
+  confirmation.setAttribute("role","status");
+  confirmation.setAttribute("aria-live","polite");
+  confirmation.tabIndex=-1;
+  const mark=document.createElement("span");
+  mark.className="alsa-success-icon";mark.setAttribute("aria-hidden","true");mark.textContent="✓";
+  const heading=document.createElement("h2");heading.textContent=details.title;
+  const description=document.createElement("p");description.textContent=details.detail;
+  const next=document.createElement("p");next.textContent=details.next;
+  const link=document.createElement("a");link.className="btn btn-primary";link.href=details.href;link.textContent=details.label+" →";
+  confirmation.append(mark,heading,description,next,link);
+  form.append(confirmation);
+  confirmation.scrollIntoView({behavior:"smooth",block:"center"});
+  confirmation.focus({preventScroll:true});
+  return true;
  }catch(error){
   if(feedback){feedback.textContent=error.message||"We could not send your information. Please try again or contact ALSA directly.";feedback.classList.add("show");}
   return false;
