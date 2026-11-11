@@ -95,11 +95,11 @@ if (year) year.textContent = new Date().getFullYear();
 
   // Retain the driver application as its own navigation path.
   for (const nav of [desktop, mobileNav]) {
-    if (!nav || nav.querySelector('a[href="driver-application.html"]')) continue;
+    if (!nav || nav.querySelector('a[href="career-application.html?role=New%20CDL%20Class%20A%20Driver"]')) continue;
     const driver = document.createElement('a');
-    driver.href = 'driver-application.html';
+    driver.href = 'career-application.html?role=New%20CDL%20Class%20A%20Driver';
     driver.textContent = 'Drive With ALSA';
-    if (currentPage === 'driver-application.html') driver.classList.add('active');
+    if (currentPage === 'career-application.html') driver.classList.add('active');
     const cta = nav.querySelector(':scope > .btn');
     if (cta) nav.insertBefore(driver, cta);
     else nav.append(driver);
