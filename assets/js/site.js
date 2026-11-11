@@ -77,6 +77,22 @@ if (year) year.textContent = new Date().getFullYear();
   makeShipperDropdown(desktop, false);
   makeShipperDropdown(mobileNav, true);
 
+  // Keep careers discoverable in both desktop and mobile navigation.
+  for (const nav of [desktop, mobileNav]) {
+    if (!nav || nav.querySelector('a[href="careers.html"]')) continue;
+    const careers = document.createElement('a');
+    careers.href = 'careers.html';
+    careers.textContent = 'Careers';
+    if (currentPage === 'careers.html') careers.classList.add('active');
+    const contact = nav.querySelector('a[href="contact.html"]');
+    if (contact) nav.insertBefore(careers, contact);
+    else {
+      const cta = nav.querySelector(':scope > .btn');
+      if (cta) nav.insertBefore(careers, cta);
+      else nav.append(careers);
+    }
+  }
+
   // Retain the driver application as its own navigation path.
   for (const nav of [desktop, mobileNav]) {
     if (!nav || nav.querySelector('a[href="driver-application.html"]')) continue;
